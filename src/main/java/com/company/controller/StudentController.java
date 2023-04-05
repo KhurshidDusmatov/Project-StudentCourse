@@ -1,11 +1,15 @@
 package com.company.controller;
 
+import com.company.dto.BetweenDateDTO;
 import com.company.dto.StudentDTO;
+import com.company.entity.StudentEntity;
 import com.company.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -41,5 +45,25 @@ public class StudentController {
     public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(studentService.delete(id));
     }
+
+//    @GetMapping(value = "get-by-some-field/{someField}")
+//    public ResponseEntity<?> getBySomeField(@PathVariable("someField") String someField){
+//        List<StudentDTO> list = studentService.getBySomeField(someField);
+//        return ResponseEntity.ok(list);
+//    }
+
+    @GetMapping(value = "list-by-given-date/{date}")
+    public ResponseEntity<List<StudentDTO>> getListByGivenDate(@PathVariable("date") LocalDateTime date){
+        List<StudentDTO> list = studentService.getListByGivenDate(date);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "list-by-given-dates")
+    public ResponseEntity<List<StudentDTO>> getListByGivenDate(@RequestBody BetweenDateDTO dto){
+        List<StudentDTO> list = studentService.getListByGivenDates(dto);
+        return ResponseEntity.ok(list);
+    }
+
+
 
 }

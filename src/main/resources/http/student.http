@@ -10,11 +10,11 @@ POST localhost:8080/student/create
 Content-Type: application/json
 
 {
-  "name": "A",
-  "surname": "Aliyeva",
-  "age": 18,
-  "gender": "FEMALE",
-  "level": "1"
+  "name": "D",
+  "surname": "B",
+  "age": 23,
+  "gender": "MALE",
+  "level": "4"
 }
 
 
@@ -38,17 +38,33 @@ Content-Type: application/json
 ]
 
 ### Student update
-PUT localhost:8080/student/update/53147582-5732-40d8-af7d-cedb75d35f6c
+PUT localhost:8080/student/update/2
 Content-Type: application/json
 
 {
-  "name": "Qo'y",
-  "surname": "Qo'chqorov"
+  "name": "V",
+  "surname": "Valiyeva",
+  "age": 19,
+  "gender": "FEMALE",
+  "level": "1"
 }
 
 ### Student delete
-DELETE localhost:8080/student/delete/529a9e08-e2c3-4d56-a1d6-c26aa341f805
+DELETE localhost:8080/student/delete/2
 
 
 ### Student by id
 GET localhost:8080/student/test
+
+###
+GET  localhost:8080/student/list-by-given-date/2023-04-05T14:21:33.844902
+
+###
+
+GET localhost:8080/student/list-by-given-dates
+Content-Type: application/json
+
+{
+  "fromDate": "2023-04-05T14:21:33.844902",
+  "toDate": "2023-04-05T16:15:32.89926"
+}
