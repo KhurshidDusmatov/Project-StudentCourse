@@ -28,7 +28,7 @@ public class StudentController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<?> create(@RequestBody StudentDTO studentDTO) {
-        StudentDTO response = studentService.crate(studentDTO);
+        StudentDTO response = studentService.create(studentDTO);
         return ResponseEntity.ok(response);
     }
 
@@ -42,9 +42,4 @@ public class StudentController {
         return ResponseEntity.ok(studentService.delete(id));
     }
 
-    @GetMapping(value = "/test")
-    public ResponseEntity<?> test() {
-        studentService.test();
-        return ResponseEntity.ok().build();
-    }
 }

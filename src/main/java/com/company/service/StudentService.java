@@ -4,10 +4,12 @@ package com.company.service;
 import com.company.dto.StudentDTO;
 import com.company.entity.StudentEntity;
 import com.company.exp.AppBadRequestException;
+import com.company.exp.StudentNotFoundException;
 import com.company.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +25,10 @@ public class StudentService {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setSurname(entity.getSurname());
-        //...
+        dto.setAge(entity.getAge());
+        dto.setLevel(entity.getLevel());
+        dto.setGender(entity.getGender());
+        dto.setCreatedDate(entity.getCreatedDate());
         return dto;
     }
 
@@ -35,19 +40,32 @@ public class StudentService {
         return true;
     }
 
-    public StudentDTO crate(StudentDTO dto) {
+    public StudentDTO create(StudentDTO dto) {
         StudentEntity entity = new StudentEntity();
         entity.setName(dto.getName());
         entity.setSurname(dto.getSurname());
+        entity.setAge(dto.getAge());
+        entity.setLevel(dto.getLevel());
+        entity.setGender(dto.getGender());
+        entity.setCreatedDate(LocalDateTime.now());
         if (dto.getName() == null || dto.getName().isBlank()) {
             throw new AppBadRequestException("Name qani?");
         }
         if (dto.getSurname() == null || dto.getSurname().isBlank()) {
             throw new AppBadRequestException("Surname qani?");
         }
-
+        if (dto.getAge() == null || dto.getAge() < 0) {
+            throw new AppBadRequestException("Age is invalid");
+        }
+        if (dto.getLevel() == null || dto.getLevel().isBlank()) {
+            throw new AppBadRequestException("Level is invalid");
+        }
+        if (dto.getGender() == null ) {
+            throw new AppBadRequestException("Gender is invalid");
+        }
         studentRepository.save(entity);
         dto.setId(entity.getId());
+        dto.setCreatedDate(entity.getCreatedDate());
         return dto;
     }
 
@@ -60,7 +78,10 @@ public class StudentService {
             dto.setId(entity.getId());
             dto.setName(entity.getName());
             dto.setSurname(entity.getSurname());
-            //...
+            dto.setAge(entity.getAge());
+            dto.setLevel(entity.getLevel());
+            dto.setGender(entity.getGender());
+            dto.setCreatedDate(entity.getCreatedDate());
             dtoList.add(dto);
         });
         return dtoList;
@@ -75,16 +96,9 @@ public class StudentService {
     public StudentEntity get(Integer id) {
         Optional<StudentEntity> optional = studentRepository.findById(id);
         if (optional.isEmpty()) {
-            throw new AppBadRequestException("Student not found: " + id);
+            throw new StudentNotFoundException("No student with this ID was found : " + id);
         }
         return optional.get();
     }
 
-    public void test() {
-//        StudentEntity entity = studentRepository.findByPhone("123");
-//        System.out.println(entity);
-
-        Optional<StudentEntity> entity = studentRepository.findByPhone("123");
-        System.out.println(entity);
-    }
 }

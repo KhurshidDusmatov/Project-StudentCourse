@@ -1,7 +1,13 @@
 package com.company.dto;
 
+import com.company.enums.Gender;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -9,8 +15,8 @@ public class StudentDTO {
     private Integer id;
     private String name;
     private String surname;
-    private String psw;
-    private String phone;
+    private String level;
     private Integer age;
-    private Boolean visible;
+    private Gender gender;
+    private LocalDateTime createdDate;
 }
