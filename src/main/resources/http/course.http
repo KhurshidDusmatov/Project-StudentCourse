@@ -1,0 +1,43 @@
+###
+POST localhost:8080/course/create
+Content-Type:application/json
+
+{
+  "name": "Medicine",
+  "duration": "19 oy",
+  "price" : 280
+}
+
+### Get All
+GET  localhost:8080/course/list
+
+
+### Delete
+DELETE localhost:8080/course/delete/99
+
+### Update
+PUT localhost:8080/course/update/5
+Content-Type: application/json
+
+{
+  "name": "Math",
+  "duration": "8 oy",
+  "price" : 125
+}
+###
+PUT localhost:8080/course/list-by-between-prices
+Content-Type:application/json
+
+{
+  "fromPrice": 100,
+  "untilPrice": 200
+}
+
+###
+PUT localhost:8080/course/list-by-given-dates
+Content-Type: application/json
+
+{
+  "fromDate": "2023-04-05",
+  "toDate": "2023-04-05"
+}

@@ -54,7 +54,7 @@ public class StudentService {
         entity.setAge(dto.getAge());
         entity.setLevel(dto.getLevel());
         entity.setGender(dto.getGender());
-        entity.setCreatedDate(LocalDateTime.now());
+        entity.setCreatedDate(LocalDate.now());
         check(dto);
         studentRepository.save(entity);
         dto.setId(entity.getId());
@@ -94,7 +94,7 @@ public class StudentService {
         return optional.get();
     }
 
-    public List<StudentDTO> getListByGivenDate(LocalDateTime date) {
+    public List<StudentDTO> getListByGivenDate(LocalDate date) {
         List<StudentEntity> entities = studentRepository.findAllByCreatedDate(date);
         return parseToDto(entities);
     }

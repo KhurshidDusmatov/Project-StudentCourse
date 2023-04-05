@@ -53,7 +53,7 @@ public class StudentController {
 //    }
 
     @GetMapping(value = "list-by-given-date/{date}")
-    public ResponseEntity<List<StudentDTO>> getListByGivenDate(@PathVariable("date") LocalDateTime date){
+    public ResponseEntity<List<StudentDTO>> getListByGivenDate(@PathVariable("date") LocalDate date){
         List<StudentDTO> list = studentService.getListByGivenDate(date);
         return ResponseEntity.ok(list);
     }

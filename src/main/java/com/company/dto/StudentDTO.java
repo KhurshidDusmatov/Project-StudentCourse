@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,5 +19,5 @@ public class StudentDTO {
     private String level;
     private Integer age;
     private Gender gender;
-    private LocalDateTime createdDate;
+    private LocalDate createdDate;
 }

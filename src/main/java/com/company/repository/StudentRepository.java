@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StudentRepository extends CrudRepository<StudentEntity, Integer> {
-    List<StudentEntity> findAllByCreatedDate(LocalDateTime date);
+    List<StudentEntity> findAllByCreatedDate(LocalDate date);
 
-    List<StudentEntity> findAllByCreatedDateBetween(LocalDateTime fromDate, LocalDateTime toDate);
+    List<StudentEntity> findAllByCreatedDateBetween(LocalDate fromDate, LocalDate toDate);
 
     List<StudentEntity> findByNameOrSurnameLikeOrAgeBetween(String name, String surname
             , Integer ageFrom, Integer ageTo);
