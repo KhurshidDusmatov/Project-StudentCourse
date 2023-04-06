@@ -1,19 +1,16 @@
 package com.company.entity;
 
-import com.company.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "course")
 public class CourseEntity {
-//    id,name,price,duration,createdDate
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,7 +20,6 @@ public class CourseEntity {
     private Double price;
     @Column(name = "duration")
     private String duration;
-
     @Column(name = "created_date")
     private LocalDate createdDate;
 }
