@@ -1,5 +1,6 @@
 package com.company.service;
 
+import com.company.dto.BetweenDateDTO;
 import com.company.dto.ResponseDTO;
 import com.company.dto.StudentCourseMarkDTO;
 import com.company.entity.CourseEntity;
@@ -68,9 +69,9 @@ public class StudentCourseMarkService {
         return dto;
     }
 
-    private StudentCourseMarkEntity get(Integer id){
+    private StudentCourseMarkEntity get(Integer id) {
         Optional<StudentCourseMarkEntity> studentCourseMark = studentCourseMarkRepository.findById(id);
-        if (studentCourseMark.isEmpty()){
+        if (studentCourseMark.isEmpty()) {
             throw new StudentCourseMarkException("StudentCourseMark not found ");
         }
         return studentCourseMark.get();
@@ -113,12 +114,48 @@ public class StudentCourseMarkService {
         return dtos;
     }
 
-       private StudentCourseMarkDTO toDTO(StudentCourseMarkEntity entity, StudentCourseMarkDTO dto){
-           dto.setId(entity.getId());
-           dto.setCourseId(entity.getCourse().getId());
-           dto.setStudentId(entity.getStudent().getId());
-           dto.setMark(entity.getMark());
-           dto.setCreatedDate(entity.getCreatedDate());
-           return dto;
-       }
+    private StudentCourseMarkDTO toDTO(StudentCourseMarkEntity entity, StudentCourseMarkDTO dto) {
+        dto.setId(entity.getId());
+        dto.setCourseId(entity.getCourse().getId());
+        dto.setStudentId(entity.getStudent().getId());
+        dto.setMark(entity.getMark());
+        dto.setCreatedDate(entity.getCreatedDate());
+        return dto;
+    }
+
+    public List<StudentCourseMarkDTO>  getMarkByGivenDate(LocalDate date, Integer id) {
+        List<StudentCourseMarkEntity> list = studentCourseMarkRepository.findByCreatedDateAndStudentId(date, id);
+        List<StudentCourseMarkDTO> dtoList = new LinkedList<>();
+        for (StudentCourseMarkEntity entity : list) {
+            StudentCourseMarkDTO dto = new StudentCourseMarkDTO();
+            dto.setStudentId(entity.getStudent().getId());
+            dto.setCourseId(entity.getCourse().getId());
+            dto.setMark(entity.getMark());
+            dto.setCreatedDate(entity.getCreatedDate());
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    public List<StudentCourseMarkDTO> getStudentMarkBetweenDate(Integer id, BetweenDateDTO dto) {
+        List<StudentCourseMarkEntity> list = studentCourseMarkRepository.findAllByStudentIdAndCreatedDateBetween(id, dto.getFromDate(), dto.getToDate());
+        List<StudentCourseMarkDTO> dtos = new LinkedList<>();
+        list.forEach(entity -> {
+            StudentCourseMarkDTO scmDto = new StudentCourseMarkDTO();
+            StudentCourseMarkDTO toDTO = toDTO(entity, scmDto);
+            dtos.add(toDTO);
+        });
+        return dtos;
+    }
+
+    public List<StudentCourseMarkDTO> getMarksOrderByDesc(Integer id) {
+        List<StudentCourseMarkEntity> list = studentCourseMarkRepository.findAllByStudentIdOrderByCreatedDateDesc(id);
+        List<StudentCourseMarkDTO> dtos = new LinkedList<>();
+        list.forEach(entity -> {
+            StudentCourseMarkDTO scmDto = new StudentCourseMarkDTO();
+            StudentCourseMarkDTO toDTO = toDTO(entity, scmDto);
+            dtos.add(toDTO);
+        });
+        return dtos;
+    }
 }

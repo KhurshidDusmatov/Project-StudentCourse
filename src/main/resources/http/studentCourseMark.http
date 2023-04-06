@@ -29,3 +29,17 @@ DELETE localhost:8080/student-course-mark/delete/5
 
 ### Get List
 GET localhost:8080/student-course-mark/list
+
+### Get Student Course Mark Get Mark By date
+GET localhost:8080/student-course-mark/get_by_given_date/1
+
+### Get Student Mark by Date
+GET localhost:8080/student-course-mark/get-student-mark-between-date/6
+Content-Type: application/json
+
+{
+  "fromDate": "2023-04-06",
+  "toDate": "2023-04-06"
+}
+
+
